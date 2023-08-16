@@ -1,48 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { serializeCookie } from '@lib'
 import prisma from '@lib/database'
-import {compareSync} from 'bcrypt-ts';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { username, password } = req.body
+  const { username, password }:any = req.body
   try {
-    let role=""
-    if (username === '000' && password === "password") {
-    role="admin"
-
-      const cookie = serializeCookie('user', { username: 'admin',role  })
-      return res.status(200)
-        .setHeader('Set-Cookie', cookie)
-        .json({ login: true,role:'admin' })
-      
-    }
-    let user:any = {}
-    if (username.length === 8) {
-      user = await prisma.murid.findUnique({
-        where: {
-          nis: username
-        }
-      })
-      role="murid"
-
-    } else if (username.length === 18) {
-      user =await prisma.guru.findUnique({
-        where: {
-          nip: username
-        }
-      })
-      role="guru"
-    } else {
-     return res.status(404).json({ login: false, error: 'User tidak ditemukan' })
-    }
-    const passwordIsValid = compareSync(password, user.password)
-    if (!passwordIsValid) {
-      return res.status(404).json({ login: false, error: 'User tidak ditemukan' })
-    }
-    const cookie = serializeCookie('user', {...user,role})
+console.log(
+  'ok'
+)
+   const user = await prisma.users.findFirst({where:{ username,password}})
+    if(!user) return res.status(400).json({ message: 'User not found' })
+    console.log(user)
+    const cookie = serializeCookie('user', {...user})
     return res.status(200)
       .setHeader('Set-Cookie', cookie)
-      .json({ login: true,role })
+      .json({ user })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ login: false, error })
