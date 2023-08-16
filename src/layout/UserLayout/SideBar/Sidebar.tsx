@@ -24,11 +24,11 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
   }, [setIsNarrow])
 
   useEffect(() => {
-    // axios.get('/api/mock/me')
-    //   .then((res) => {
-    //     setRole(res.data.role)
-    //   })
-    setRole('tim_verifikasi_kualitas')
+    axios.get('/api/mock/me')
+      .then((res) => {
+        console.log(res.data)
+        setRole(res.data.jabatan)
+      })
   }, [])
 
   return (
@@ -48,7 +48,7 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
         {role === 'manager_operasional' && <SidebarNav.SidebarNavManagerOperasional />}
         {role === 'tim_penerimaan_barang' && <SidebarNav.SidebarNavTimPenerimaanBarang />}
         {role === 'tim_pengambilan_barang' && <SidebarNav.SidebarNavTimPengambilanBarang />}
-        {role === 'tim_verifikasi_kualitas' && <SidebarNav.SidebarNavTimVerifikasiKualitas />}
+        {role === 'manager_kualitas' && <SidebarNav.SidebarNavTimVerifikasiKualitas />}
 
       </div>
 

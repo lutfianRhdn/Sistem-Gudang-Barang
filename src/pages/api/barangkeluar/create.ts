@@ -7,9 +7,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const masuk = await prisma.barangkeluar.create({
       data: {
         tanggal : new Date(),
-        jumlah,
+        jumlah:+jumlah,
         status,
-        id_barang,
+        id_barang: +id_barang,
         user_id,
         nama_penerima
       },
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(req.body);
     const barang = await prisma.barang.update({
         where:
-        {id:id_barang,},
+        {id:+id_barang,},
         data:{jumlah:{decrement:+jumlah|| 0}}
     })
     return res.status(200).json({ masuk })

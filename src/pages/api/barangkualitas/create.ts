@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: {
         status,
         tanggal : new Date(),
-        id_barang,
+        id_barang: +id_barang,
         user_id,
       },
     })

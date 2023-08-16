@@ -71,7 +71,7 @@ enum status{
 model kategori{
   id Int @id @default(autoincrement())
   nama String
-  barang barang []
+  barang barang[]
 }
 model pemeriksaan{
   id Int @id @default(autoincrement())

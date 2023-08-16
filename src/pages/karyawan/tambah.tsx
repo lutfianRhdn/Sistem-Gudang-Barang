@@ -20,8 +20,8 @@ export default function TambahKategori() {
 
     setSubmitting(true)
     try {
-      await axios.post('/api/kategori/create', inputs)
-      router.push('/kategori')
+      await axios.post('/api/users/create', inputs)
+      router.push('/karyawan')
     }
     catch (error: any) {
       setToastMessage(error.response.data.message)
@@ -39,13 +39,31 @@ export default function TambahKategori() {
         />
       )}
       <div className="bg-white  px-5 py-5 shadow-sm rounded-2">
-        <h1 className="mb-3">Buat Kategori  Baru</h1>
+        <h1 className="mb-3">Buat Karyawan  Baru</h1>
         <form action="" className="mt-3" onSubmit={handleSubmit} encType="">
           <Form.Group className="mb-3" >
-            <Form.Label>Nama Kategori</Form.Label>
-            <Form.Control type="text" placeholder="Nama Kategori" name="nama" onChange={handleChange} />
+            <Form.Label>Nama Karyawan</Form.Label>
+            <Form.Control type="text" placeholder="Nama karyawan" name="nama" onChange={handleChange} />
           </Form.Group>
-          
+          <Form.Group className="mb-3" >
+            <Form.Label>Username Karyawan</Form.Label>
+            <Form.Control type="text" placeholder="Username karyawan" name="username" onChange={handleChange} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" >
+            <Form.Label>Password Karyawan</Form.Label>
+            <Form.Control type="password" placeholder="password karyawan" name="password" onChange={handleChange} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" >
+            <Form.Label>Jabatan Karyawan</Form.Label>
+            <Form.Select aria-label="Default select example" name="jabatan" onChange={handleChange}>
+              <option value="manager_operasional">Manager Operasional</option>
+              <option value="tim_penerimaan_barang">Tim Penerimaan Barang</option>
+              <option value="tim_pengambilan_barang">Tim Pengambilan Barang</option>
+              <option value="manager_kualitas">Tim Verifikasi Kualitas</option>
+            </Form.Select>
+          </Form.Group>
           <Button className="px-4" variant="primary" type="submit" disabled={submitting}>Submit</Button>
         </form>
       </div>

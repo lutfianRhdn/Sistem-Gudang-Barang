@@ -3,15 +3,15 @@ import prisma from '@lib/database'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const { nama, jumlah,lokasi,kode,kategori_id } = req.body
+        const { nama,lokasi,kode,kategori_id } = req.body
         console.log(req.body)
         const product = await prisma.barang.create({
           data: {
             nama,
-            jumlah,
+            jumlah:0,
             lokasi, 
             kode,
-            kategori_id
+            kategori_id:+kategori_id
           }
       })
 

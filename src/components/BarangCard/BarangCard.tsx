@@ -30,7 +30,7 @@ export default function QuizCard({ id, nama_barang, jumlah, tanggal, nama_user, 
         {/* {imageSrc && <Card.Img variant="top" src={imageSrc} className="shadow-sm" />} */}
         <Card.Body>
           <Card.Text>
-            <div className="d-flex  justify-content-center text-center ">
+            <div className="d-flex  justify-content-center text-center gap-5">
             
 
                 {nama && (

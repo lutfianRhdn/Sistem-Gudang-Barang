@@ -144,6 +144,9 @@ export const SidebarNavManagerOperasional= () => (
     <SidebarNavItem icon={faList} href="/kategori">
       Kategori
     </SidebarNavItem>
+    <SidebarNavItem icon={faUsers} href="/karyawan">
+      karyawan
+    </SidebarNavItem>
   </ul>
 )
 

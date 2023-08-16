@@ -4,9 +4,9 @@ import prisma from '@lib/database'
 // get
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const products = await prisma.kategori.findMany()
+      const category = await prisma.kategori.findMany({ include: { _count: { select: { barang: true } } } })
     
-        return res.status(200).json({products})
+        return res.status(200).json(category );
       } catch (error) {
         console.error(error)
         return res.status(500).json({ error })

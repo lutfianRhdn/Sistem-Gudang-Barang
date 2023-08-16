@@ -18,25 +18,19 @@ export default function Kategori() {
     // ]
     // setData(dataDummy)
     (async () => {
-      const kategori = await axios.get('/api/kategori')
-      const kategoriMapped = kategori.data.map((item: any) => {
-        return {
-          id: item.id,
-          nama: item.nama,
-          jumlah_barang: item._count.barang,
-        }
-      })
-      setData(kategoriMapped)
+      const users: any = await axios.get('/api/users')
+      console.log(users)
+      setData(users.data)
     })()
   }, [])
   return (
     <UserLayout>
       <div className="">  
-        <h1>Kategori</h1>
-        <Link href="/kategori/tambah" className="btn btn-primary mx-2 my-3">Tambah Kategori</Link>
+        <h1>Karyawan</h1>
+        <Link href="/karyawan/tambah" className="btn btn-primary mx-2 my-3">Tambah Karyawan</Link>
       </div>
 
-    <Table datas={data} headers={['nama','jumlah_barang']} isHiddenAction={false} />
+      <Table datas={data} headers={['nama', 'username', 'jabatan']} isHiddenAction={false} />
     </UserLayout>
   )
 }

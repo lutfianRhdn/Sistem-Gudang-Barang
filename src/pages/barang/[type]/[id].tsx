@@ -1,6 +1,7 @@
 'use client'
 import { BarangCard } from "@components/BarangCard";
 import { UserLayout } from "@layout";
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -13,75 +14,33 @@ export default function Barang_Masuk({ props }:any) {
 
   const [data, setData] = useState([])
   const [role, setRole] = useState('')
-
+  const [namaBarang, setNamaBarang] = useState('')
   useEffect(() => {
-    console.log(id,type)
-    const dataDummy = [
-      {
-        id: 1,
-        nama_barang: 'Harry Potter',
-        jumlah: 10,
-        tanggal: new Date(),
-        nama_user: 'Gipar',
-        status_pemeriksaan: 'bagus',
-        nama: 'Ariz',
-
-      },
-      {
-        id: 1,
-        nama_barang: 'Harry Potter',
-        jumlah: 10,
-        tanggal: new Date(),
-        nama_user: 'Gipar',
-        status_pemeriksaan: 'bagus',
-        nama: 'Ariz',
-
-      }, {
-        id: 1,
-        nama_barang: 'Harry Potter',
-        jumlah: 10,
-        tanggal: new Date(),
-        nama_user: 'Gipar',
-        status_pemeriksaan: 'bagus',
-        nama: 'Ariz',
-
-      }, {
-        id: 1,
-        nama_barang: 'Harry Potter',
-        jumlah: 10,
-        tanggal: new Date(),
-        nama_user: 'Gipar',
-        status_pemeriksaan: 'bagus',
-        nama: 'Ariz',
-
-      }, {
-        id: 1,
-        nama_barang: 'Harry Potter',
-        jumlah: 10,
-        tanggal: new Date(),
-        nama_user: 'Gipar',
-        status_pemeriksaan: 'bagus',
-        nama: 'Ariz',
-
-      },
-    ]
-    setData(dataDummy)
-    setRole('tim_penerimaan_barang')
-  }, [id])
+    if(!id || !type) return 
+    (async () => {
+      const user = await axios.get('/api/mock/me')
+      setRole(user.data.jabatan)
+      const barang = await axios.get(`/api/barang/${id}`)
+      setNamaBarang(barang.data.nama)
+      const barang_masuk = await axios.get(`/api/barang${type}/${id}`)
+      console.log(barang_masuk.data)
+      setData(barang_masuk.data)
+    })()
+  }, [id,type])
  
   return (
     <UserLayout>
-      <h1>Nama Barang</h1>
-      {(role === 'tim_penerimaan_barang') && (
+      <h1>{ namaBarang}</h1>
+      {(role !== 'manager_operasional') && (
         <>
           <Link href={`/barang/${type}/tambah/${id}`} className="btn btn-primary mx-2 my-3">Tambah Barang</Link>
         </>
         )}
       <Row >
 
-      {data.map((item) => 
+      {data.length !==0 &&data.map((item) => 
         <Col md="4" className="my-3">
-          <BarangCard id={item.id}   nama_barang={item.nama_barang} nama_user={item.nama_user} status_pemeriksaan={item.status_pemeriksaan} tanggal={item.tanggal} type={type==='masuk'?'penerimaan':'pengambilan' } />
+          <BarangCard id={item.id} nama_barang={item.barang.nama} jumlah={item.jumlah} nama={item.nama_pemasok || item.nama_penerima} nama_user={item.user.nama} status_pemeriksaan={item.status} tanggal={new Date(item.tanggal)} type={type==='masuk'?'penerimaan':'pengambilan' } />
         
         </Col>
         )}

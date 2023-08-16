@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const barangkeluar = await prisma.barangkeluar.findMany({select:
         {user:true,barang:true,tanggal:true,status:true,nama_penerima:true,jumlah:true}})
 
-    return res.status(200).json({ barangkeluar })
+    return res.status(200).json(barangkeluar )
   } catch (error) {
     console.error(error)
     return res.status(500).json({ error })

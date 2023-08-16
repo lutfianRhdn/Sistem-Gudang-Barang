@@ -42,11 +42,17 @@ const Login: NextPage = () => {
     setSubmitting(true)
 
     try {
-      // const res = await axios.post('api/mock/login', inputs)
-      router.push('/dashboard')
+      axios.post('api/mock/login', inputs).then((res) => {
+        router.push('/dashboard')
+        
+      }).catch((err) => {
+        console.log(err.response.data)
+        setIsShownToast(true) 
+        setToastMessage(err.response.data.message)
+      })
+      // router.push('/dashboard')
       // if (res.status === 200) {
         // console.log(res.data)
-        // router.push('/dashboard')
         // switch (res.data.role) {
         //   case 'admin':
         //     break
@@ -93,8 +99,8 @@ const Login: NextPage = () => {
                     name="username"
                     required
                     disabled={submitting}
-                    placeholder="Nip/Nis"
-                    aria-label="Nip/Nis"
+                    placeholder="username"
+                    aria-label="username"
                     type='text'
                     onChange={ handleChange }
                         defaultValue={inputs.username ||''}
@@ -120,9 +126,7 @@ const Login: NextPage = () => {
                     
                       />
                     </InputGroup>
-                  <Link className='' href="wali-kelas-login" >
-                    <i>  Login Sebagai Wali Kelas</i>
-                  </Link>
+                  
                 <Row className='justify-content-between mt-3'>
                       <Col xs={6}>
                         <Button className="px-4" variant="primary" type="submit" disabled={submitting}>Login</Button>
