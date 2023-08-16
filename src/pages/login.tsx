@@ -42,20 +42,20 @@ const Login: NextPage = () => {
     setSubmitting(true)
 
     try {
-      const res = await axios.post('api/mock/login', inputs)
-      if (res.status === 200) {
-        console.log(res.data)
-        switch (res.data.role) {
-          case 'admin':
-            router.push('/admin')
-            break
-            default:
-            router.push('/dashboard')
-            break
-        }
+      // const res = await axios.post('api/mock/login', inputs)
+      router.push('/dashboard')
+      // if (res.status === 200) {
+        // console.log(res.data)
+        // router.push('/dashboard')
+        // switch (res.data.role) {
+        //   case 'admin':
+        //     break
+        //     default:
+        //     break
+        // }
         // router.push('/admin')
         
-      }
+      // }
       setSubmitting(false)
     } catch (error: any) {
       setIsShownToast(true)

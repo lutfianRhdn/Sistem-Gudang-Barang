@@ -39,7 +39,7 @@ export default function Table(props: Props) {
           <tr key={index}>
             <td>{index + 1}</td>
             {headers.map((header,key) => (
-              <td key={key}>{data[header].toString().split('_').join(' ')}</td>
+              <td key={key}>{data[header]}</td>
             )
             )}
             {!isHiddenAction && (

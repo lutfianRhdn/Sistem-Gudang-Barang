@@ -32,7 +32,7 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
       id="sidebar"
     >
       <div className="sidebar-brand d-none d-md-flex align-items-center justify-content-center">
-        <h5>Sistem Informasi Sekolah</h5>
+        <h5>InventoStore</h5>
       </div>
 
       <div className="sidebar-nav flex-fill">

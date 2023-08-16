@@ -7,14 +7,18 @@ import {
   IconDefinition,
 } from '@fortawesome/free-regular-svg-icons'
 import {
+  faBox,
+  faBoxesPacking,
   faBug,
   faCalculator,
   faChalkboardTeacher,
   faChartPie,
+  faCheckToSlot,
   faChevronUp, faCode,
   faDroplet,
   faGauge,
   faLayerGroup,
+  faList,
   faLocationArrow,
   faPencil,
   faPuzzlePiece,
@@ -131,44 +135,44 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
     </Accordion>
   )
 }
-export const SidebarNavStudent = () => (
+
+export const SidebarNavManagerOperasional= () => (
   <ul className="list-unstyled">
-    <SidebarNavItem icon={faGauge} href="/dashboard">
-      Dashboard
+    <SidebarNavItem icon={faBox} href="/barang">
+      Barang
     </SidebarNavItem>
-    <SidebarNavItem icon={faTableList} href="/test">
-      Ujian
+    <SidebarNavItem icon={faList} href="/kategori">
+      Kategori
     </SidebarNavItem>
   </ul>
 )
 
-export const SidebarNavTeacher = () => (
-  <>
+
+export const SidebarNavTimPengambilanBarang = () => (
   <ul className="list-unstyled">
-    <SidebarNavItem icon={faGauge} href="/dashboard">
-      Dashboard
+    <SidebarNavItem icon={faBoxesPacking} href="/barang">
+      Barang Keluar
     </SidebarNavItem>
-    <SidebarNavItem icon={faTableList} href="/quiz">
-      Soal
-    </SidebarNavItem>
-  
   </ul>
-  </>
 )
 
-export const SidebarNavWaliKelas = () => (
-  <>
-    <ul className="list-unstyled">
-      <SidebarNavItem icon={faGauge} href="/dashboard">
-        Dashboard
-      </SidebarNavItem>
-      <SidebarNavItem icon={faRankingStar} href="/score">
-        Nilai
-      </SidebarNavItem>
 
-    </ul>
-  </>
+export const SidebarNavTimPenerimaanBarang = () => (
+  <ul className="list-unstyled">
+    <SidebarNavItem icon={faBoxesPacking} href="/barang">
+      Barang Masuk
+    </SidebarNavItem>
+  </ul>
 )
-export default { SidebarNavStudent, SidebarNavTeacher, SidebarNavWaliKelas }
+
+export const SidebarNavTimVerifikasiKualitas = () => (
+  <ul className="list-unstyled">
+    <SidebarNavItem icon={faCheckToSlot} href="/barang">
+      Verifikasi Kualitas
+    </SidebarNavItem>
+  </ul>
+)
+
+export default { SidebarNavManagerOperasional, SidebarNavTimPenerimaanBarang,SidebarNavTimPengambilanBarang,SidebarNavTimVerifikasiKualitas }
 
 

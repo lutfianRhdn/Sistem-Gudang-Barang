@@ -24,10 +24,11 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
   }, [setIsNarrow])
 
   useEffect(() => {
-    axios.get('/api/mock/me')
-      .then((res) => {
-        setRole(res.data.role)
-      })
+    // axios.get('/api/mock/me')
+    //   .then((res) => {
+    //     setRole(res.data.role)
+    //   })
+    setRole('tim_verifikasi_kualitas')
   }, [])
 
   return (
@@ -40,14 +41,15 @@ export default function Sidebar(props: { isShow: boolean; isShowMd: boolean }) {
       id="sidebar"
     >
       <div className="sidebar-brand d-none d-md-flex align-items-center justify-content-center">
-        <h5>Sistem Informasi Sekolah</h5>
+        <h5>InventoStore</h5>
       </div>
 
       <div className="sidebar-nav flex-fill">
-        {role === 'murid' && <SidebarNav.SidebarNavStudent />}
-        {role === 'guru' && <SidebarNav.SidebarNavTeacher />}
-        {role === 'walikelas' && <SidebarNav.SidebarNavWaliKelas />}
-        
+        {role === 'manager_operasional' && <SidebarNav.SidebarNavManagerOperasional />}
+        {role === 'tim_penerimaan_barang' && <SidebarNav.SidebarNavTimPenerimaanBarang />}
+        {role === 'tim_pengambilan_barang' && <SidebarNav.SidebarNavTimPengambilanBarang />}
+        {role === 'tim_verifikasi_kualitas' && <SidebarNav.SidebarNavTimVerifikasiKualitas />}
+
       </div>
 
     
