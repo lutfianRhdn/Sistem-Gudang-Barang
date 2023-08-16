@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Murid {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  nis      String @unique
+  alamat    String
+  kelas_id  Int
+  password String
+  kelas     Kelas    @relation(fields: [kelas_id], references: [id])
+  jawaban Jawaban[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([kelas_id])
+}
+model Kelas{
+  id        Int      @id @default(autoincrement())
+  nama      String @unique
+  murid     Murid[]
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Guru{
+  id        Int      @id @default(autoincrement())
+  nama      String
+  nip      String @unique
+
+  alamat    String
+  password String
+  mata_pelajaran String
+  soal Soal[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Soal{
+  id        Int      @id @default(autoincrement())
+  path_file      String
+  title     String  
+  description String
+  type      SoalType @default(TUGAS)
+  tenggat DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  kunci_jawaban_path String?
+  guru_id Int
+  guru Guru @relation(fields: [guru_id], references: [id])
+  jawaban Jawaban[]
+
+  @@index([guru_id])
+}
+
+enum SoalType {
+  UTS
+  UAS
+  TUGAS
+}
+
+model Jawaban {
+  id        Int      @id @default(autoincrement())
+  pah_file      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  murid_id Int
+  soal_id Int
+  nilai Int
+  murid Murid @relation(fields: [murid_id], references: [id])
+  soal Soal @relation(fields: [soal_id], references: [id])
+
+
+  @@index([soal_id])
+  @@index([murid_id])
+}
+
+  
