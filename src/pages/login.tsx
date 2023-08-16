@@ -95,7 +95,7 @@ const Login: NextPage = () => {
                     disabled={submitting}
                     placeholder="Nip/Nis"
                     aria-label="Nip/Nis"
-                    type='number'
+                    type='text'
                     onChange={ handleChange }
                         defaultValue={inputs.username ||''}
                       />
