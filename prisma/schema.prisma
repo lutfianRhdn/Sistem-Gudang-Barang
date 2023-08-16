@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model users {
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String 
+  nama String 
+  jabatan jabatan
+  barangmasuk barangmasuk []
+  status pemeriksaan[]
+  barangkeluar barangkeluar[]
+  
+}
+
+enum jabatan {
+  tim_penerimaan_barang
+  tim_pengambilan_barang
+  manager_operasional
+  manager_kualitas
+}
+
+model barang {
+  id Int @id @default(autoincrement())
+  nama String
+  jumlah Int 
+  lokasi Json
+  kode String @unique
+  kategori_id Int 
+  kategori kategori @relation(fields: [kategori_id],references: [id])  
+  barang barangmasuk []
+  keluar barangkeluar[]
+  status pemeriksaan[]
+}
+model barangmasuk{
+  id Int @id @default(autoincrement())
+  tanggal DateTime
+  nama_pemasok String
+  jumlah Int 
+  status status
+  id_barang Int 
+  user_id Int 
+  barang barang @relation(fields: [id_barang],references: [id])
+  user users @relation(fields: [user_id],references: [id])
+}
+model barangkeluar{
+    id Int @id @default(autoincrement())
+    tanggal DateTime
+    status status    
+    jumlah Int
+    id_barang Int 
+    user_id Int 
+    nama_penerima String 
+    barang barang @relation(fields: [id_barang],references: [id])
+    user users @relation(fields: [user_id],references: [id])
+
+}
+enum status{
+  bagus
+  rusak
+  kadaluarsa
+}
+model kategori{
+  id Int @id @default(autoincrement())
+  nama String
+  barang barang []
+}
+model pemeriksaan{
+  id Int @id @default(autoincrement())
+  tanggal DateTime
+  status status 
+  id_barang Int 
+  user_id Int 
+  barang barang @relation(fields: [id_barang],references: [id])
+  user users @relation(fields: [user_id],references: [id])
+}
